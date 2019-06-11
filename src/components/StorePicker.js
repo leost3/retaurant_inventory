@@ -5,8 +5,8 @@ class StorePicker extends React.Component {
 
     submitForm = (e) => {
         e.preventDefault();
-        const storeiD = this.storeInput.value;
-        this.context.router.history.push("/store/asdasd");
+        const storeId = this.storeInput.value;
+        this.context.router.history.push(`/store/${storeId}`);
     }
 
     render() {
