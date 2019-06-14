@@ -30,7 +30,6 @@ class App extends React.Component {
         const order = {...this.state.order};
         order[key] = order[key] + 1 || 1;
         this.setState({ order });
-        console.log(this.state.order)
     }
 
 
