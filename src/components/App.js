@@ -10,7 +10,7 @@ class App extends React.Component {
     
     state = {
         fishes:{},
-        orders:{},
+        order:{},
     }
 
     addFishes = (fish) => {
@@ -26,6 +26,13 @@ class App extends React.Component {
         })
     }
 
+    addToOrder = (key) => {
+        const order = {...this.state.order};
+        order[key] = order[key] + 1 || 1;
+        this.setState({ order });
+        console.log(this.state.order)
+    }
+
 
     render() {
         return (
@@ -36,11 +43,17 @@ class App extends React.Component {
                         {
                             Object
                                 .keys(this.state.fishes)
-                                .map( key => <Fish key={key} details={this.state.fishes[key]} />)
+                                .map( key => 
+                                    <Fish 
+                                    key={key} 
+                                    details={this.state.fishes[key]}
+                                    addToOrder={this.addToOrder}
+                                    index={key}
+                                    />)
                         }
                     </ul>
                 </div>
-                <Order />
+                <Order fishes={this.state.fishes} order={this.state.order} />
                 <Iventory addFishes={this.addFishes} loadSamples={this.loadSamples} />
             </div>
         )

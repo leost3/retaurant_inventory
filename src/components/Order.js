@@ -3,7 +3,9 @@ import React from 'react';
 class Order extends React.Component {
     render() {
         return (
-            <p>Order</p>
+            <div className='order-wrap'>
+                <h2>Your order</h2>
+            </div>
         )
     }
 }
