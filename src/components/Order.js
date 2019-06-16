@@ -22,7 +22,6 @@ class Order extends React.Component {
 
 
     render() {
-        console.log(this.props)
         const orderIds = Object.keys(this.props.order); //[fish1, fish2, fish3]
         const total = orderIds.reduce((prevTotal, key) => {
             const fish = this.props.fishes[key];
