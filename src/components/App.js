@@ -15,7 +15,7 @@ class App extends React.Component {
     }
 
     componentWillMount() {
-        
+        // this runs right before the < App > in rendered
         this.ref = base.syncState(`${this.props.match.params.storeId}/fishes`,
         {
             context: this,
@@ -36,7 +36,6 @@ class App extends React.Component {
     }
 
     componentWillUpdate(nextProps, nextState) {
-        console.log({nextProps, nextState})
         localStorage.setItem(`order-${this.props.match.params.storeId}`,
         JSON.stringify(nextState.order));
     }
@@ -46,6 +45,24 @@ class App extends React.Component {
         const timeStamp = Date.now();
         fishes[`fish-${timeStamp}`] = fish;
         this.setState({fishes})
+    }
+
+    updateFish = (key, updatedFish) => {
+        const fishes = {...this.state.fishes};
+        fishes[key] = updatedFish;
+        this.setState({ fishes });
+    }
+
+    deleteFish = (key) => {
+        const fishes = {...this.state.fishes};
+        fishes[key] = null;
+        this.setState({ fishes });;
+    }
+
+    removeOrder = (key) => {
+        const order = {...this.state.order};
+        delete order[key];
+        this.setState({ order });
     }
 
     loadSamples = () => {
@@ -84,8 +101,15 @@ class App extends React.Component {
                     fishes={this.state.fishes} 
                     order={this.state.order} 
                     params={this.props.match.params.storeId}
-                    />
-                <Iventory addFishes={this.addFishes} loadSamples={this.loadSamples} />
+                    removeOrder={this.removeOrder}
+                />
+                <Iventory 
+                    addFishes={this.addFishes} 
+                    deleteFish={this.deleteFish} 
+                    loadSamples={this.loadSamples}
+                    fishes={this.state.fishes}
+                    updateFish = {this.updateFish}
+                />
             </div>
         )
     }
